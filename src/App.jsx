@@ -1,17 +1,38 @@
+import MediaThemeTailwindAudio from "player.style/tailwind-audio/react";
 import { useState } from "react";
-import './player.css'
-function App() {
+const App = () => {
+  const [quality, setQuality] = useState();
+  const quality192 = "https://ic2527.c972.fastserv.com:80/spoonradio_mp3_192";
+  const quality128 = "https://ic2527.c972.fastserv.com:80/spoonradio_mp3_128";
   return (
-    <div className="player">
-      <audio
-        className="player__buttons"
-        controls
-        src="https://ic2527.c972.fastserv.com:80/spoonradio_mp3_192"
+    <>
+      <div style={{ display: "flex" }}>
+        <div
+          onClick={() => setQuality(quality128)}
+          style={{ cursor: "pointer", marginRight: "1rem" }}
+        >
+          128kbits/s
+        </div>
+        <div
+          onClick={() => setQuality(quality192)}
+          style={{ cursor: "pointer", marginRight: "1rem" }}
+        >
+          192kbits/s
+        </div>
+      </div>
+
+      <MediaThemeTailwindAudio
+        style={{ width: "100vw", "--media-primary-color": "#d12323" }}
       >
-        Votre navigateur ne supporte pas l'élément audio.
-      </audio>
-    </div>
+        <audio
+          slot="media"
+          src={quality}
+          playsInline
+          crossOrigin="anonymous"
+        ></audio>
+      </MediaThemeTailwindAudio>
+    </>
   );
-}
+};
 
 export default App;
